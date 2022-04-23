@@ -12,7 +12,7 @@ const resolvers = {
                 return userData;
             }
             throw new AuthenticationError('You must be logged in!');
-        }
+        },
     },
 
     Mutation: {
@@ -23,7 +23,7 @@ const resolvers = {
             return { token, user };
         },
 
-        login: async (_parent, { email, passsword }) => {
+        login: async (_parent, { email, password }) => {
             const user = await User.findOne({ email });
 
             if(!user) {
@@ -33,7 +33,7 @@ const resolvers = {
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect password!');
+                throw new AuthenticationError('Incorrect input!');
             }
 
             const token = signToken(user);

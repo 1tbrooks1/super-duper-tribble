@@ -21,9 +21,10 @@ const SavedBooks = () => {
     }
 
     try {
-      await removeBook({
+      const { data } = await removeBook({
         variables: { bookId },
       });
+
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
@@ -33,7 +34,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
@@ -62,6 +63,7 @@ const SavedBooks = () => {
                   <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
                     Delete this Book!
                   </Button>
+                  {error && <div>Something went wrong!</div>}
                 </Card.Body>
               </Card>
             );
