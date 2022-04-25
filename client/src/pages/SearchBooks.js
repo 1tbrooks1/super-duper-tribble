@@ -75,16 +75,15 @@ const SearchBooks = () => {
     }
 
     try {
-      await saveBook({
+      const { data } = await saveBook({
         variables: { bookData: { ...bookToSave } },
       });
 
-      setSavedBookIds([...saveBookIds, bookToSave.bookId]);
+      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
